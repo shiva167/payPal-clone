@@ -1,0 +1,71 @@
+#server:
+#  port: 8082
+#
+#spring:
+#  application:
+#    name: transaction-service
+#
+#  kafka:
+#    bootstrap-servers: localhost:9092
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#    template:
+#      default-topic: transaction-events
+#
+#  datasource:
+#    url: jdbc:h2:mem:transactiondb
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password:
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#
+#  # Disables the version mismatch check between Spring Boot 3.5.x and Spring Cloud 2024.x
+#  cloud:
+#    compatibility-verifier:
+#      enabled: false
+#
+
+server:
+  port: 8082
+
+spring:
+  application:
+    name: transaction-service
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    template:
+      default-topic: transaction-events
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/transaction_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: rootpassword
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  # Add Redis configuration here so StringRedisTemplate can autowire successfully
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  # Disables the version mismatch check between Spring Boot 3.5.x and Spring Cloud 2024.x
+  cloud:
+    compatibility-verifier:
+      enabled: false
